@@ -17,6 +17,7 @@ db.serialize(() => {
   db.run(`
     CREATE TABLE IF NOT EXISTS fichajes (
       id INTEGER PRIMARY KEY AUTOINCREMENT,
+      nombre TEXT,
       tipo TEXT,
       fecha TEXT,
       hora TEXT,
