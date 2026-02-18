@@ -44,4 +44,5 @@ CREATE TABLE ausencias (
 
 ✔ Datos reales de prueba (SQL)
 INSERT INTO empleados (nombre,email,password)
+
 VALUES ('Juan Pérez','juan@test.com', MD5('1234'));
