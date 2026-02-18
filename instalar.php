@@ -5,7 +5,7 @@ $password = "password"; // El que definiste en docker-compose
 
 try {
     // Conexión al servidor MySQL
-    $conexion = new PDO("mysql:host;dbname=control_horario", $usuario, $password);
+    $conexion = new PDO("mysql:host=db;dbname=control_horario", $usuario, $password);
     $conexion->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
     echo "Conectado correctamente<br>";
