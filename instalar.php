@@ -1,21 +1,14 @@
 <?php
-$host = "db";           // En Docker es el nombre del servicio
-$usuario = "usuario";   // El que definiste en docker-compose
-$password = "password"; // El que definiste en docker-compose
+$host = "localhost";      // MySQL local en EC2
+$usuario = "usuario";     // El que creaste en MySQL
+$password = "password";   // Tu password de MySQL
+$dbname = "control_horario";
 
 try {
-    // Conexión al servidor MySQL
-    $conexion = new PDO("mysql:host=db;dbname=control_horario", $usuario, $password);
+    // Conexión directa a la BD ya creada
+    $conexion = new PDO("mysql:host=$host;dbname=$dbname;charset=utf8", $usuario, $password);
     $conexion->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-
     echo "Conectado correctamente<br>";
-
-    // Crear base de datos
-    $conexion->exec("CREATE DATABASE IF NOT EXISTS control_horario");
-    echo "Base de datos creada<br>";
-
-    // Seleccionar base de datos
-    $conexion->exec("USE control_horario");
 
     // Tabla empleados
     $conexion->exec("
@@ -70,16 +63,18 @@ try {
     ");
     echo "Tabla ausencias creada<br>";
 
-    // Insertar empleado de prueba
-    $conexion->exec("
-        INSERT INTO empleados (nombre, email, password)
-        VALUES ('Juan Pérez','juan@test.com', MD5('1234'))
+    // Insertar empleado de prueba con password_hash
+    $passwordHash = password_hash('1234', PASSWORD_DEFAULT);
+    $stmt = $conexion->prepare("
+        INSERT IGNORE INTO empleados (nombre, email, password)
+        VALUES ('Juan Pérez', 'juan@test.com', ?)
     ");
-
+    $stmt->execute([$passwordHash]);
     echo "Usuario de prueba insertado<br>";
-    echo "<h2>Instalación completada correctamente</h2>";
+
+    echo "<h2>✅ Instalación completada correctamente</h2>";
 
 } catch (PDOException $e) {
-    die("Error: " . $e->getMessage());
+    die("❌ Error: " . $e->getMessage());
 }
 ?>
