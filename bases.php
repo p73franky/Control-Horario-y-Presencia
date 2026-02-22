@@ -55,3 +55,4 @@ CREATE TABLE ausencias (
 -- ===============================
 INSERT INTO empleados (nombre, email, password)
 VALUES ('Juan Pérez', 'juan@test.com', '1234');
+
