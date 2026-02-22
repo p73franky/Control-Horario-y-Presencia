@@ -1,17 +1,22 @@
-📌 Base de datos
-CREATE DATABASE control_horario;
+-- ===============================
+-- CREAR BASE DE DATOS
+-- ===============================
+CREATE DATABASE IF NOT EXISTS control_horario;
 USE control_horario;
 
-
-Tabla empleados
+-- ===============================
+-- TABLA EMPLEADOS
+-- ===============================
 CREATE TABLE empleados (
     id INT AUTO_INCREMENT PRIMARY KEY,
     nombre VARCHAR(100) NOT NULL,
     email VARCHAR(100) NOT NULL UNIQUE,
-    password VARCHAR(255) NOT NULL
+    password VARCHAR(50) NOT NULL
 );
 
-⏱️ Tabla fichajes
+-- ===============================
+-- TABLA FICHAJES
+-- ===============================
 CREATE TABLE fichajes (
     id INT AUTO_INCREMENT PRIMARY KEY,
     empleado_id INT NOT NULL,
@@ -23,8 +28,9 @@ CREATE TABLE fichajes (
     FOREIGN KEY (empleado_id) REFERENCES empleados(id)
 );
 
-
-☕ Tabla pausas (múltiples al día)
+-- ===============================
+-- TABLA PAUSAS
+-- ===============================
 CREATE TABLE pausas (
     id INT AUTO_INCREMENT PRIMARY KEY,
     fichaje_id INT NOT NULL,
@@ -33,7 +39,9 @@ CREATE TABLE pausas (
     FOREIGN KEY (fichaje_id) REFERENCES fichajes(id)
 );
 
-❌ Tabla ausencias
+-- ===============================
+-- TABLA AUSENCIAS
+-- ===============================
 CREATE TABLE ausencias (
     id INT AUTO_INCREMENT PRIMARY KEY,
     empleado_id INT NOT NULL,
@@ -42,7 +50,8 @@ CREATE TABLE ausencias (
     FOREIGN KEY (empleado_id) REFERENCES empleados(id)
 );
 
-✔ Datos reales de prueba (SQL)
-INSERT INTO empleados (nombre,email,password)
-
-VALUES ('Juan Pérez','juan@test.com', MD5('1234'));
+-- ===============================
+-- DATOS DE PRUEBA
+-- ===============================
+INSERT INTO empleados (nombre, email, password)
+VALUES ('Juan Pérez', 'juan@test.com', '1234');
